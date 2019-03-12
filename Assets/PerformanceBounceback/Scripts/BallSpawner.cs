@@ -7,12 +7,11 @@ public class BallSpawner : MonoBehaviour {
     public static BallSpawner current;
 
     public GameObject pooledBall; //the prefab of the object in the object pool
-    public int ballsAmount = 20; //the number of objects you want in the object pool
+    public int ballsAmount = 2; //the number of objects you want in the object pool
     public List<GameObject> pooledBalls; //the object pool
     public static int ballPoolNum = 0; //a number used to cycle through the pooled objects
-
     private float cooldown;
-    private float cooldownLength = 0.5f;
+    private float cooldownLength = 1.0f;
 
     void Awake()
     {
@@ -21,7 +20,7 @@ public class BallSpawner : MonoBehaviour {
 
     void Start()
     {
-        //Create Bullet Pool
+        //Create pooled balls
         pooledBalls = new List<GameObject>();
         for (int i = 0; i < ballsAmount; i++)
         {
@@ -41,7 +40,8 @@ public GameObject GetPooledBall()
     //if we’ve run out of objects in the pool too quickly, create a new one
     if (pooledBalls[ballPoolNum].activeInHierarchy)
     {
-        //create a new bullet and add it to the Pooled Ball List
+        
+        //create a new ball and add it to the Pooled Ball List
         GameObject obj = Instantiate(pooledBall);
         pooledBalls.Add(obj);
         ballsAmount++;
@@ -69,5 +69,11 @@ public GameObject GetPooledBall()
         selectedRigidbody.velocity = Vector3.zero;
         selectedRigidbody.angularVelocity = Vector3.zero;
         selectedBall.SetActive(true);
+        StartCoroutine(TemporaryBall(selectedBall));
     }
+    public IEnumerator TemporaryBall(GameObject ball) {
+    // After a period of time, destroy the coin. 
+    yield return new WaitForSeconds(30);
+    ball.SetActive(false);
+}
 }
