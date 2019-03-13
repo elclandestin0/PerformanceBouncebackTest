@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Score : MonoBehaviour {
+public class Score : MonoBehaviour
+{
 
     public GameManager gameManager;
+    Text text;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        text = GetComponentInChildren<Text>();
+    }
 
-        Text text = GetComponentInChildren<Text>();
+    // Update is called once per frame
+    void Update()
+    {
         text.text = "Score: " + gameManager.score.ToString();
-
-		
-	}
+    }
 }
