@@ -11,7 +11,7 @@ public class BallSpawner : MonoBehaviour {
     public List<GameObject> pooledBalls; //the object pool
     public static int ballPoolNum = 0; //a number used to cycle through the pooled objects
     private float cooldown;
-    private float cooldownLength = 1.0f;
+    private float cooldownLength = 0.5f;
 
     void Awake()
     {
@@ -47,7 +47,6 @@ public GameObject GetPooledBall()
         ballsAmount++;
         ballPoolNum = ballsAmount - 1;
     }
-        Debug.Log("GetPooledBall returned ball number: " + ballPoolNum);
         return pooledBalls[ballPoolNum];
 }
    	
